@@ -2,9 +2,16 @@ package com.staff.model.vo;
 
 import java.sql.Date;
 
-import javax.tools.JavaCompiler;
+
+import javax.persistence.Id;
+
+
+
+
 
 public class StaffVO implements java.io.Serializable {
+	private static final long serialVersionUID = 1L;
+
 	private Integer id;
 	private String name;
 	private String uid;
