@@ -9,24 +9,24 @@ import com.admin.model.vo.AdminFuncVO;
 public class AdminFuncService {
 
 	private AdminFuncDAO dao;
-	
+
 	public AdminFuncService() {
 		dao = new AdminFuncDAOImpl();
 	}
-	
-	public List<AdminFuncVO> getAll(){
+
+	public List<AdminFuncVO> getAll() {
 		return dao.selectAll();
 	}
-	
+
 	public void addAdminFunc(AdminFuncVO adminFuncVO) {
 		dao.insert(adminFuncVO);
 	}
-	
+
 	public void editAdminFunc(AdminFuncVO adminFuncVO) {
 		dao.update(adminFuncVO);
 	}
-	
-	
-	
-	
+
+	public void getOne(Integer adminId) {
+        dao.selectOne(adminId);
+	}
 }

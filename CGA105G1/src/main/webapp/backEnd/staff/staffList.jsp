@@ -3,6 +3,8 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.staff.model.service.*" %>
 <%@ page import="com.staff.model.vo.*" %>
+<%@ page import="com.admin.model.service.*" %>
+<%@ page import="com.admin.model.vo.*" %>
 
 
 <%
@@ -10,7 +12,12 @@ StaffService staffSvc = new StaffService();
     List<StaffVO> list = staffSvc.getAll();
     pageContext.setAttribute("list",list);
 %>
+<%
+ AdminService adminSvc = new AdminService();
+ List<AdminVO> adminvo = adminSvc.getAll();
+ pageContext.setAttribute("adminvo", adminvo);
 
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -55,6 +62,7 @@ cursor: pointer;
 <td>地址</td>
 <td>職稱</td>
 <td>狀態</td>
+<td>權限</td>
 <td></td>
 </tr>
 
@@ -73,6 +81,14 @@ cursor: pointer;
 			<td>${staffVO.add}</td>
 			<td>${staffVO.posi}</td>
 			<td>${staffVO.status == 0 ? "在職" : "離職"}</td>
+			<td>
+<%-- 			<jsp:useBean id="adminFuncSvc" scope="page" --%>
+<%-- 						class="com.admin.model.service.AdminFuncService" /> --%>
+<%-- 			<c:forEach var="adminFuncVO" items="${adminvo}"> --%>
+<%-- 							${adminFuncSvc.selectOne())} --%>
+<%-- 			</c:forEach> --%>
+			
+			</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backEnd/staff/register" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">

@@ -132,7 +132,8 @@ cursor: pointer;
 					<td><c:forEach var="adminFuncVO" items="${adminFuncSvc.getAll()}">
 							<label for="${adminFuncVO.getAdminID()}" style="font-size:10px;"><input type="checkbox" name="admin" id="${adminFuncVO.getAdminID()}" value="${adminFuncVO.getAdminID()} ">
 							${adminFuncVO.getAdminName()}</label>
-						</c:forEach></td>
+						</c:forEach>
+					</td>
 				</tr>
 				<tr>
 					<td><input type="hidden" name="action" value="insert"></td>

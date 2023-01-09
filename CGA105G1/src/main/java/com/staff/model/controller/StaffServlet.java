@@ -28,23 +28,24 @@ public class StaffServlet extends HttpServlet {
 		if ("insert".equals(action)) {
 			insert(req, res);
 		}
-		if("updateTemp".equals(action)) {
+		if ("updateTemp".equals(action)) {
 			Integer staffId = Integer.valueOf(req.getParameter("staffId"));
 			StaffService staffSvc = new StaffService();
 			AdminService adminSvc = new AdminService();
 			AdminVO adminVO = adminSvc.getOneAdmin(staffId);
 			StaffVO staffVO = staffSvc.getStaff(staffId);
-			
+
 			req.setAttribute("staffVO", staffVO);
 			req.setAttribute("adminVO", adminVO);
 			String url = "update.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
-		if("update".equals(action)) {
+		if ("update".equals(action)) {
 			update(req, res);
 		}
 	}
+
 	private void update(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String sname = req.getParameter("sname");
 		String uid = req.getParameter("uid");
@@ -60,10 +61,10 @@ public class StaffServlet extends HttpServlet {
 		String statusStr = req.getParameter("status");
 		String idStr = req.getParameter("staffId");
 		java.sql.Date birth = Date.valueOf(birthStr);
-		
+
 		Integer status = Integer.valueOf(statusStr);
 		Integer id = Integer.valueOf(idStr.toString().trim());
-		
+
 		StaffVO staffVO = new StaffVO();
 		staffVO.setId(id);
 		staffVO.setName(sname);
@@ -78,21 +79,15 @@ public class StaffServlet extends HttpServlet {
 		staffVO.setPw(password);
 		staffVO.setPosi(posi);
 		staffVO.setStatus(status);
-		
-		
-		
+
 		StaffService staffSvc = new StaffService();
 		staffSvc.updateStaff(staffVO);
-
-
-
 
 //			轉交
 		String url = "staffList.jsp";
 		RequestDispatcher successView = req.getRequestDispatcher(url);
 		successView.forward(req, res);
 	}
-
 
 	private void insert(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String sname = req.getParameter("sname");
@@ -106,16 +101,19 @@ public class StaffServlet extends HttpServlet {
 		String acount = req.getParameter("acount");
 		String password = req.getParameter("password");
 		String posi = req.getParameter("job");
-		String adminStr = req.getParameter("admin");
+		String[] adminStr = req.getParameterValues("admin");
 
-		
-		List<String> errorMsgs = getErrorMsgs(sname, uid, birthStr, sex, email, phone, address, acount, password,
-				posi, adminStr);
+		List<String> errorMsgs = getErrorMsgs(sname, uid, birthStr, sex, email, phone, address, acount, password, posi,
+				adminStr);
 
 		java.sql.Date birth = Date.valueOf(birthStr);
-		Integer admin = Integer.valueOf(adminStr);
-		
-		
+
+		Integer adminInt[] = new Integer[adminStr.length];
+
+		for (int idx = 0; idx < adminStr.length; idx++) {
+			adminInt[idx] = Integer.valueOf(adminStr[idx].trim());
+		}
+
 		StaffVO staffVO = new StaffVO();
 		staffVO.setName(sname);
 		staffVO.setUid(uid);
@@ -139,11 +137,10 @@ public class StaffServlet extends HttpServlet {
 		StaffService staffSvc = new StaffService();
 		int id = staffSvc.addStaff(staffVO);
 
-
-
 		AdminService adminSvc = new AdminService();
-		AdminVO adminVO = adminSvc.addAdminOnStaff(admin, id);
-
+		for (int idx = 0; idx < adminInt.length; idx++) {
+			AdminVO adminVO = adminSvc.addAdminOnStaff(adminInt[idx], id);
+		}
 //			轉交
 		String url = "staffList.jsp";
 		RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -151,7 +148,7 @@ public class StaffServlet extends HttpServlet {
 	}
 
 	private List<String> getErrorMsgs(String sname, String uid, String birthStr, String sex, String email, String phone,
-			String address, String acount, String password, String posi, String adminStr) {
+			String address, String acount, String password, String posi, String[] adminStr) {
 		List<String> errorMsgs = new LinkedList<String>();
 		String snameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
 		if (sname == null || sname.trim().length() == 0) {
@@ -160,11 +157,10 @@ public class StaffServlet extends HttpServlet {
 			errorMsgs.add("員工姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 		}
 
-		
 		if (uid == null || uid.trim().length() == 0) {
 			errorMsgs.add("請勿空白");
 		}
-		
+
 		try {
 			java.sql.Date birth = Date.valueOf(birthStr);
 		} catch (IllegalArgumentException e) {
@@ -189,25 +185,21 @@ public class StaffServlet extends HttpServlet {
 			errorMsgs.add("請勿空白");
 		}
 
-		
 		if (acount == null || acount.trim().length() == 0) {
 			errorMsgs.add("請勿空白");
 
-			
-		if (password == null || password.trim().length() == 0) {
-			errorMsgs.add("請勿空白");
-		}
+			if (password == null || password.trim().length() == 0) {
+				errorMsgs.add("請勿空白");
+			}
 
-		if (posi == null || posi.trim().length() == 0) {
-			errorMsgs.add("請選擇職稱");
-		}
-		
-		if (adminStr == null) {
-			errorMsgs.add("請選擇權限");
-		} else {
-			Integer admin = Integer.valueOf(adminStr);
-		}
-		return errorMsgs;
+			if (posi == null || posi.trim().length() == 0) {
+				errorMsgs.add("請選擇職稱");
+			}
+
+			if (adminStr == null) {
+				errorMsgs.add("請選擇權限");
+			} 
+			return errorMsgs;
 		}
 		return errorMsgs;
 	}
