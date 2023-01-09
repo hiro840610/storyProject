@@ -21,10 +21,20 @@ StaffVO staffVO = (StaffVO) request.getAttribute("staffVO");
 }
 </style>
 <script>
-		function enter() {
-			alert("新增成功");
-		}
-	</script>
+	function enter() {
+		alert("新增成功");
+	}
+</script>
+<style type="text/css">
+input#allStaff{
+ background-color: lightgray;
+ border:none;
+ border-radius:5px;
+}
+input#allStaff:hover,#search:hover{
+cursor: pointer;
+}
+</style>
 </head>
 
 <body>
@@ -39,7 +49,9 @@ StaffVO staffVO = (StaffVO) request.getAttribute("staffVO");
 		</ul>
 	</c:if>
 
-
+	<div>
+	<form action="staffList.jsp"><input id = "allStaff" type ="submit" value = "員工列表"></form>
+	</div>
 	<!-- 新增員工資料 -->
 	<div>
 		<form action="register" method="post">
@@ -117,12 +129,10 @@ StaffVO staffVO = (StaffVO) request.getAttribute("staffVO");
 					<jsp:useBean id="adminFuncSvc" scope="page"
 						class="com.admin.model.service.AdminFuncService" />
 					<td><label>權限:</label></td>
-					<td><select name="admin">
-							<option value="0" disabled selected>請選擇</option>
-							<c:forEach var="adminFuncVO" items="${adminFuncSvc.getAll()}">
-								<option value="${adminFuncVO.getAdminID()}">${adminFuncVO.getAdminName()}
-							</c:forEach>
-					</select></td>
+					<td><c:forEach var="adminFuncVO" items="${adminFuncSvc.getAll()}">
+							<label for="${adminFuncVO.getAdminID()}" style="font-size:10px;"><input type="checkbox" name="admin" id="${adminFuncVO.getAdminID()}" value="${adminFuncVO.getAdminID()} ">
+							${adminFuncVO.getAdminName()}</label>
+						</c:forEach></td>
 				</tr>
 				<tr>
 					<td><input type="hidden" name="action" value="insert"></td>
@@ -135,7 +145,7 @@ StaffVO staffVO = (StaffVO) request.getAttribute("staffVO");
 		const dateControl = document.querySelector('input[type="date"]');
 		dateControl.value = '1980-01-01';
 	</script>
-	
+
 </body>
 
 </html>
