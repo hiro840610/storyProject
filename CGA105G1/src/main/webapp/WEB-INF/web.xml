@@ -15,7 +15,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>StaffService</servlet-name>
-    <url-pattern>/backEnd/staff/register</url-pattern>
+    <url-pattern>/backstage/staff/register</url-pattern>
   </servlet-mapping>
   
 </web-app>
