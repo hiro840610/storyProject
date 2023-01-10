@@ -68,16 +68,14 @@
             <p>
               員工管理
               <i class="fas fa-angle-left right"></i>
-              <!--      TODO: {員工專區-員工管理} 請評估是否有要顯示未讀訊息數量，暫時顯示 999         -->
-              <span class="badge badge-info right">999</span>
             </p>
           </a>
           <!--    TODO: {員工專區-員工管理} 請評估是否要有子項目，需要的話請於按照  <li class="nav-item">... </li> 進行新增  -->
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="${pageContext.request.contextPath}/ipet-back/staff/allStaffList" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>項目1</p>
+                <p>員工總覽</p>
               </a>
             </li>
             <li class="nav-item">

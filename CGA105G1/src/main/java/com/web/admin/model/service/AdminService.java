@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.web.admin.model.dao.AdminDAO;
 import com.web.admin.model.dao.impl.AdminDAOImpl;
-import com.web.admin.model.vo.AdminVO;
+import com.web.admin.model.entities.Admin;
 
 public class AdminService {
 	private AdminDAO dao;
@@ -13,20 +13,20 @@ public class AdminService {
 		dao = new AdminDAOImpl();
 	}
 	
-	public AdminVO addAdminOnStaff(Integer adminId,Integer staffId) {
+	public Admin addAdminOnStaff(Integer adminId,Integer staffId) {
 		
-		AdminVO adminVO = new AdminVO();
-		adminVO.setAdminID(adminId);
-		adminVO.setStaffID(staffId);
-		dao.add(adminVO);
+		Admin admin = new Admin();
+		admin.setAdminID(adminId);
+		admin.setStaffID(staffId);
+		dao.add(admin);
 		
-		return adminVO;
+		return admin;
 	}
-	public List<AdminVO> getAll(){
+	public List<Admin> getAll(){
 		return dao.getAll();
 	}
 	
-	public AdminVO getOneAdmin(Integer staffId) {
+	public Admin getOneAdmin(Integer staffId) {
 		return dao.getById(staffId);
 	}
 	

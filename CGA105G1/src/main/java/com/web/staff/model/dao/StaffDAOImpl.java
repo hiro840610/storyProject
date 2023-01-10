@@ -4,52 +4,52 @@ import java.util.*;
 
 import org.hibernate.Session;
 
-import com.web.staff.model.vo.StaffVO;
+import com.web.staff.model.entity.Staff;
 
 
 public class StaffDAOImpl implements StaffDAO {
 
 
 	@Override
-	public StaffVO update(StaffVO StaffVO) {
+	public Staff update(Staff staff) {
 		Session session = getSession();
-		StaffVO oldstaffVO = session.get(StaffVO.class, StaffVO.getId());
-		oldstaffVO.setName(StaffVO.getName());
-		oldstaffVO.setUid(StaffVO.getUid());
-		oldstaffVO.setBth(StaffVO.getBth());
-		oldstaffVO.setSex(StaffVO.getSex());
-		oldstaffVO.setEmail(StaffVO.getEmail());
-		oldstaffVO.setPhone(StaffVO.getPhone());
-		oldstaffVO.setTel(StaffVO.getTel());
-		oldstaffVO.setAdd(StaffVO.getAdd());
-		oldstaffVO.setAc(StaffVO.getAc());
-		oldstaffVO.setPw(StaffVO.getPw());
-		oldstaffVO.setStatus(StaffVO.getStatus());
-		oldstaffVO.setPosi(StaffVO.getPosi());
-		oldstaffVO.setId(StaffVO.getId());
-		return StaffVO;
+		Staff oldstaffVO = session.get(Staff.class, staff.getId());
+		oldstaffVO.setName(staff.getName());
+		oldstaffVO.setUid(staff.getUid());
+		oldstaffVO.setBth(staff.getBth());
+		oldstaffVO.setSex(staff.getSex());
+		oldstaffVO.setEmail(staff.getEmail());
+		oldstaffVO.setPhone(staff.getPhone());
+		oldstaffVO.setTel(staff.getTel());
+		oldstaffVO.setAdd(staff.getAdd());
+		oldstaffVO.setAc(staff.getAc());
+		oldstaffVO.setPw(staff.getPw());
+		oldstaffVO.setStatus(staff.getStatus());
+		oldstaffVO.setPosi(staff.getPosi());
+		oldstaffVO.setId(staff.getId());
+		return staff;
 	}
 
 	@Override
-	public List<StaffVO> getAll() {
+	public List<Staff> getAll() {
 		Session session = getSession();
         String hql = "FROM Staff";
-        return session.createQuery(hql, StaffVO.class).list();
+        return session.createQuery(hql, Staff.class).list();
 	}
 		
 	@Override
-	public StaffVO getById(Integer id) {
+	public Staff getById(Integer id) {
 		 Session session = getSession();
-	        return session.get(StaffVO.class, id);
+	        return session.get(Staff.class, id);
 		
 	}
 	
 
 	@Override
-	public Integer add(StaffVO staffVO) {
+	public Integer add(Staff staff) {
 		Session session = getSession();
-		session.persist(staffVO);
-		return staffVO.getId();
+		session.persist(staff);
+		return staff.getId();
 	}
 
 }

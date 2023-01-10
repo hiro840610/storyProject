@@ -18,7 +18,9 @@ import java.io.IOException;
  */
 @WebFilter(urlPatterns = "/*")
 public class HibernateFilter extends HttpFilter {
-    @Override
+    private static final long serialVersionUID = 1L;
+
+	@Override
     protected void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {

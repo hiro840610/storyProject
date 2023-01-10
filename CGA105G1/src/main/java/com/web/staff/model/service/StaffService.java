@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.web.staff.model.dao.StaffDAO;
 import com.web.staff.model.dao.StaffDAOImpl;
-import com.web.staff.model.vo.StaffVO;
+import com.web.staff.model.entity.Staff;
 
 public class StaffService {
 
@@ -18,21 +18,22 @@ public class StaffService {
 
 	int id = 0;
 
-	public int addStaff(StaffVO staffVO) {
+	public int addStaff(Staff staffVO) {
 		id = dao.add(staffVO);
 		return id;
 	}
 	
-	public StaffVO updateStaff(StaffVO staffVO) {
+	public Staff updateStaff(Staff staffVO) {
 		return dao.update(staffVO);
 	}
 	
 	
-	public StaffVO getStaff(int id) {
-		StaffVO staffVO = dao.getById(id);
+	public Staff getStaff(int id) {
+		Staff staffVO = dao.getById(id);
 		return staffVO;
 	}
-	public List<StaffVO> getAll() {
+	
+	public List<Staff> getAll() {
 		return dao.getAll();
 	}
 

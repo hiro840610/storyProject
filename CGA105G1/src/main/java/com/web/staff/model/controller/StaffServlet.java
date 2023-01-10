@@ -12,14 +12,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.web.admin.model.entities.Admin;
 import com.web.admin.model.service.AdminService;
-import com.web.admin.model.vo.AdminVO;
+import com.web.staff.model.entity.Staff;
 import com.web.staff.model.service.StaffService;
-import com.web.staff.model.vo.StaffVO;
-
+@WebServlet({"/ipet-back/staff/allStaffList", })
 public class StaffServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		String path = req.getServletPath();
+		if ("/ipet-back/staff/allStaffList".equals(path)){
+			StaffService staffSvc = new StaffService();
+			List<Staff> list = staffSvc.getAll();
+			req.setAttribute("list", list);
+			req.getRequestDispatcher("/templates/backstage/staff/ataffList.jsp").forward(req, res);
+	}
+}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
@@ -32,10 +41,10 @@ public class StaffServlet extends HttpServlet {
 			Integer staffId = Integer.valueOf(req.getParameter("staffId"));
 			StaffService staffSvc = new StaffService();
 			AdminService adminSvc = new AdminService();
-			AdminVO adminVO = adminSvc.getOneAdmin(staffId);
-			StaffVO staffVO = staffSvc.getStaff(staffId);
+			Admin adminVO = adminSvc.getOneAdmin(staffId);
+			Staff staff = staffSvc.getStaff(staffId);
 
-			req.setAttribute("staffVO", staffVO);
+			req.setAttribute("staff", staff);
 			req.setAttribute("adminVO", adminVO);
 			String url = "update.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
@@ -65,23 +74,23 @@ public class StaffServlet extends HttpServlet {
 		Integer status = Integer.valueOf(statusStr);
 		Integer id = Integer.valueOf(idStr.toString().trim());
 
-		StaffVO staffVO = new StaffVO();
-		staffVO.setId(id);
-		staffVO.setName(sname);
-		staffVO.setUid(uid);
-		staffVO.setBth(birth);
-		staffVO.setSex(sex);
-		staffVO.setEmail(email);
-		staffVO.setPhone(phone);
-		staffVO.setTel(tel);
-		staffVO.setAdd(address);
-		staffVO.setAc(acount);
-		staffVO.setPw(password);
-		staffVO.setPosi(posi);
-		staffVO.setStatus(status);
+		Staff staff = new Staff();
+		staff.setId(id);
+		staff.setName(sname);
+		staff.setUid(uid);
+		staff.setBth(birth);
+		staff.setSex(sex);
+		staff.setEmail(email);
+		staff.setPhone(phone);
+		staff.setTel(tel);
+		staff.setAdd(address);
+		staff.setAc(acount);
+		staff.setPw(password);
+		staff.setPosi(posi);
+		staff.setStatus(status);
 
 		StaffService staffSvc = new StaffService();
-		staffSvc.updateStaff(staffVO);
+		staffSvc.updateStaff(staff);
 
 //			轉交
 		String url = "staffList.jsp";
@@ -114,32 +123,32 @@ public class StaffServlet extends HttpServlet {
 			adminInt[idx] = Integer.valueOf(adminStr[idx].trim());
 		}
 
-		StaffVO staffVO = new StaffVO();
-		staffVO.setName(sname);
-		staffVO.setUid(uid);
-		staffVO.setBth(birth);
-		staffVO.setSex(sex);
-		staffVO.setEmail(email);
-		staffVO.setPhone(phone);
-		staffVO.setTel(tel);
-		staffVO.setAdd(address);
-		staffVO.setAc(acount);
-		staffVO.setPw(password);
-		staffVO.setPosi(posi);
+		Staff staff = new Staff();
+		staff.setName(sname);
+		staff.setUid(uid);
+		staff.setBth(birth);
+		staff.setSex(sex);
+		staff.setEmail(email);
+		staff.setPhone(phone);
+		staff.setTel(tel);
+		staff.setAdd(address);
+		staff.setAc(acount);
+		staff.setPw(password);
+		staff.setPosi(posi);
 
 		if (!errorMsgs.isEmpty()) {
-			req.setAttribute("staffVO", staffVO); // 含有輸入格式錯誤的empVO物件,也存入req
+			req.setAttribute("staffVO", staff); // 含有輸入格式錯誤的empVO物件,也存入req
 			RequestDispatcher failureView = req.getRequestDispatcher("/backEnd/staff/register.jsp");
 			failureView.forward(req, res);
 			return;
 		}
 
 		StaffService staffSvc = new StaffService();
-		int id = staffSvc.addStaff(staffVO);
+		int id = staffSvc.addStaff(staff);
 
 		AdminService adminSvc = new AdminService();
 		for (int idx = 0; idx < adminInt.length; idx++) {
-			AdminVO adminVO = adminSvc.addAdminOnStaff(adminInt[idx], id);
+			Admin adminVO = adminSvc.addAdminOnStaff(adminInt[idx], id);
 		}
 //			轉交
 		String url = "staffList.jsp";

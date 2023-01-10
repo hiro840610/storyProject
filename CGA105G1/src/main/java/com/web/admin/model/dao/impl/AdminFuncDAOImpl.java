@@ -5,34 +5,34 @@ import java.util.List;
 import org.hibernate.Session;
 
 import com.web.admin.model.dao.AdminFuncDAO;
-import com.web.admin.model.vo.AdminFuncVO;
+import com.web.admin.model.entities.AdminFunc;
 
 public class AdminFuncDAOImpl implements AdminFuncDAO {
 	
 	@Override
-	public void update(AdminFuncVO adminFuncVO) {
+	public void update(AdminFunc adminFuncVO) {
 
 		Session session = getSession();
-		AdminFuncVO oldadminFuncVO = session.get(AdminFuncVO.class, adminFuncVO.getAdminID());
+		AdminFunc oldadminFuncVO = session.get(AdminFunc.class, adminFuncVO.getAdminID());
 		oldadminFuncVO.setAdminID(adminFuncVO.getAdminID());
 		oldadminFuncVO.setAdminName(adminFuncVO.getAdminName());
 		}
 		
 	@Override
-	public List<AdminFuncVO> getAll() {
+	public List<AdminFunc> getAll() {
 		Session session = getSession();
-		String hql = "FROM ipetdb.staff_admin_per_func";
-		return session.createQuery(hql,AdminFuncVO.class).list();
+		String hql = "FROM AdminFunc";
+		return session.createQuery(hql,AdminFunc.class).list();
 	}
 
 	@Override
-	public AdminFuncVO getById(Integer adminID) {
+	public AdminFunc getById(Integer adminID) {
 		Session session = getSession();
-		return session.get(AdminFuncVO.class, adminID);
+		return session.get(AdminFunc.class, adminID);
 	}
 
 	@Override
-	public Integer add(AdminFuncVO adminFuncVO) {
+	public Integer add(AdminFunc adminFuncVO) {
 		Session session = getSession();
         session.persist(adminFuncVO);
         return adminFuncVO.getAdminID();

@@ -1,10 +1,10 @@
-<%@page import="com.web.staff.model.vo.StaffVO"%>
+<%@page import="com.web.staff.model.entity.Staff"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.web.staff.model.*"%>
 
 <%
-StaffVO staffVO = (StaffVO) request.getAttribute("staffVO");
+Staff staffVO = (Staff) request.getAttribute("staffVO");
 %>
 
 <!DOCTYPE html>
@@ -26,13 +26,14 @@ StaffVO staffVO = (StaffVO) request.getAttribute("staffVO");
 	}
 </script>
 <style type="text/css">
-input#allStaff{
- background-color: lightgray;
- border:none;
- border-radius:5px;
+input#allStaff {
+	background-color: lightgray;
+	border: none;
+	border-radius: 5px;
 }
-input#allStaff:hover,#search:hover{
-cursor: pointer;
+
+input#allStaff:hover, #search:hover {
+	cursor: pointer;
 }
 </style>
 </head>
@@ -50,7 +51,9 @@ cursor: pointer;
 	</c:if>
 
 	<div>
-	<form action="staffList.jsp"><input id = "allStaff" type ="submit" value = "員工列表"></form>
+		<form action="staffList.jsp">
+			<input id="allStaff" type="submit" value="員工列表">
+		</form>
 	</div>
 	<!-- 新增員工資料 -->
 	<div>
@@ -129,11 +132,13 @@ cursor: pointer;
 					<jsp:useBean id="adminFuncSvc" scope="page"
 						class="com.web.admin.model.service.AdminFuncService" />
 					<td><label>權限:</label></td>
-					<td><c:forEach var="adminFuncVO" items="${adminFuncSvc.getAll()}">
-							<label for="${adminFuncVO.getAdminID()}" style="font-size:10px;"><input type="checkbox" name="admin" id="${adminFuncVO.getAdminID()}" value="${adminFuncVO.getAdminID()} ">
-							${adminFuncVO.getAdminName()}</label>
-						</c:forEach>
-					</td>
+					<td><c:forEach var="adminFuncVO"
+							items="${adminFuncSvc.getAll()}">
+							<label for="${adminFuncVO.getAdminID()}" style="font-size: 10px;"><input
+								type="checkbox" name="admin" id="${adminFuncVO.getAdminID()}"
+								value="${adminFuncVO.getAdminID()} ">
+								${adminFuncVO.getAdminName()}</label>
+						</c:forEach></td>
 				</tr>
 				<tr>
 					<td><input type="hidden" name="action" value="insert"></td>

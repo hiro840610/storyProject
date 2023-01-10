@@ -1,17 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.web.staff.model.vo.*"%>
-<%@ page import="com.web.admin.model.vo.*"%>
+<%@ page import="com.web.staff.model.entity.*"%>
+<%@ page import="com.web.admin.model.entities.*"%>
 
 <%
-StaffVO staffVO = (StaffVO) request.getAttribute("staffVO");
+Staff staffVO = (Staff) request.getAttribute("staffVO");
 %>
 <%
-AdminVO adminVO = (AdminVO) request.getAttribute("adminVO");
+Admin adminVO = (Admin) request.getAttribute("adminVO");
 %>
 <%
-AdminFuncVO adminFuncVO = (AdminFuncVO) request.getAttribute("adminFuncVO");
+AdminFunc adminFuncVO = (AdminFunc) request.getAttribute("adminFuncVO");
 %>
 <!DOCTYPE html>
 <html>

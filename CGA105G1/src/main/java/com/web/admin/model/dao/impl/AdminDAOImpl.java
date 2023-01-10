@@ -3,38 +3,38 @@ package com.web.admin.model.dao.impl;
 import java.util.List;
 import org.hibernate.Session;
 import com.web.admin.model.dao.AdminDAO;
-import com.web.admin.model.vo.AdminVO;
+import com.web.admin.model.entities.Admin;
 
 public class AdminDAOImpl implements AdminDAO {
 
 
 	@Override
-	public void update(AdminVO adminVO) {
+	public void update(Admin admin) {
 		Session session = getSession();
-		AdminVO oldAdminVO = session.get(AdminVO.class, adminVO.getAdminID());
-		oldAdminVO.setAdminID(adminVO.getAdminID());
-		oldAdminVO.setStaffID(adminVO.getStaffID());
+		Admin oldAdmin = session.get(Admin.class, admin.getAdminID());
+		oldAdmin.setAdminID(admin.getAdminID());
+		oldAdmin.setStaffID(admin.getStaffID());
 	
 	}
 		
 	
 	@Override
-	public List<AdminVO> getAll() {
+	public List<Admin> getAll() {
 		   Session session = getSession();
-	        String hql = "FROM ipetdb.staff_admin_per";
-	        return session.createQuery(hql, AdminVO.class).list();
+	        String hql = "FROM Admin";
+	        return session.createQuery(hql, Admin.class).list();
 	    }
 
 	@Override
-	public AdminVO getById(Integer staffId) {
+	public Admin getById(Integer staffId) {
 		Session session = getSession();
-        return session.get(AdminVO.class, staffId);
+        return session.get(Admin.class, staffId);
 	}
 
 	@Override
-	public Integer add(AdminVO adminVO) {
+	public Integer add(Admin admin) {
 		Session session = getSession();
-        session.persist(adminVO);
-        return adminVO.getStaffID();
+        session.persist(admin);
+        return admin.getStaffID();
 	}
 }
