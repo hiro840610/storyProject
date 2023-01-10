@@ -16,7 +16,7 @@ import com.web.admin.model.entities.Admin;
 import com.web.admin.model.service.AdminService;
 import com.web.staff.model.entity.Staff;
 import com.web.staff.model.service.StaffService;
-@WebServlet({"/ipet-back/staff/allStaffList", })
+@WebServlet({"/ipet-back/staff/allStaffList","/ipet-back/staff/edit"})
 public class StaffServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -26,7 +26,7 @@ public class StaffServlet extends HttpServlet {
 			StaffService staffSvc = new StaffService();
 			List<Staff> list = staffSvc.getAll();
 			req.setAttribute("list", list);
-			req.getRequestDispatcher("/templates/backstage/staff/ataffList.jsp").forward(req, res);
+			req.getRequestDispatcher("/templates/backstage/staff/staffList.jsp").forward(req, res);
 	}
 }
 
@@ -41,11 +41,12 @@ public class StaffServlet extends HttpServlet {
 			Integer staffId = Integer.valueOf(req.getParameter("staffId"));
 			StaffService staffSvc = new StaffService();
 			AdminService adminSvc = new AdminService();
-			Admin adminVO = adminSvc.getOneAdmin(staffId);
+			Admin admin = adminSvc.getOneAdmin(staffId);
 			Staff staff = staffSvc.getStaff(staffId);
-
+			System.out.println("before add admin");
+			System.out.println(admin);
 			req.setAttribute("staff", staff);
-			req.setAttribute("adminVO", adminVO);
+			req.setAttribute("admin", admin);
 			String url = "update.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);

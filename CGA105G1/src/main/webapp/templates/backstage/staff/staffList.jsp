@@ -1,11 +1,10 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.web.staff.model.service.*"%>
 <%@ page import="com.web.staff.model.entity.*"%>
 <%@ page import="com.web.admin.model.service.*"%>
 <%@ page import="com.web.admin.model.entities.*"%>
-
 
 
 <%
@@ -19,37 +18,21 @@ List<Admin> adminvo = adminSvc.getAll();
 pageContext.setAttribute("adminvo", adminvo);
 %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>員工列表</title>
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IPET 寵物</title>
+<!-- TODO: 目前先使用 完整css，後續再換成 min.css-->
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet"
 	href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-
-<!-- MultiDatePicker  -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/backstage/plugins/jquery-ui/jquery-ui.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/backstage/plugins/jquery-ui-multidatepicker/css/jquery-ui.multidatespicker.css">
 <!-- Font Awesome Icons -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/static/backstage/plugins/fontawesome-free/css/all.css">
-<!-- DataTables -->
+<!-- IonIcons -->
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/backstage/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/backstage/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/backstage/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/backstage/plugins/datatables-select/css/select.bootstrap4.css">
-<!-- iCheck for checkboxes and radio inputs -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/static/backstage/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-
-<!-- TODO: 目前先使用 完整css-->
+	href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 <!-- Theme style -->
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/static/backstage/css/adminlte.css">
@@ -60,25 +43,33 @@ table, th, td {
 	border: 1px solid white;
 	border-collapse: collapse;
 }
-
 th, td {
 	background-color: pink;
 }
-
 input#addNew {
 	background-color: lightgray;
 	border: none;
 	border-radius: 5px;
 }
-
 input#addNew:hover, #search:hover {
 	cursor: pointer;
 }
 </style>
+
+
+
 </head>
+<!--
+`body` tag options:
+
+  Apply one or more of the following classes  to the body tag
+  to get the desired effect
+
+  * sidebar-collapse
+  * sidebar-mini
+-->
 <body class="hold-transition sidebar-mini">
 	<div class="wrapper">
-
 		<!--  Navbar -->
 		<%@ include file="/templates/backstage/common/navbar.jsp"%>
 		<!-- /.navbar -->
@@ -86,80 +77,101 @@ input#addNew:hover, #search:hover {
 		<!-- 左邊選單區 Main Sidebar Container -->
 		<%@ include file="/templates/backstage/common/sidebar.jsp"%>
 		<!-- /.aside -->
-		<form action="register.jsp">
-			<input id="addNew" type="submit" value="新增員工">
-		</form>
-		<table>
-			<tr>
-				<td>員工編號</td>
-				<td>員工姓名</td>
-				<td>身份證字號</td>
-				<td>生日</td>
-				<td>性別</td>
-				<td>信箱</td>
-				<td>手機</td>
-				<td>市內電話</td>
-				<td>地址</td>
-				<td>職稱</td>
-				<td>狀態</td>
-				<td>權限</td>
-				<td></td>
-			</tr>
 
-			<%@ include file="page1.file"%>
-			<c:forEach var="staffVO" items="${list}" begin="<%=pageIndex%>"
-				end="<%=pageIndex+rowsPerPage-1%>">
+		<!-- 中間頁面 Content Wrapper. Contains page content -->
+		<div class="content-wrapper">
+			<!-- Content Header (Page header) -->
+			<section class="content-header">
+				<div class="container-fluid">
+						<form action="register.jsp">
+							<input id="addNew" type="submit" value="新增員工">
+						</form>
+					<div class="row mb-2">
+							<table>
+								<tr>
+									<td>員工編號</td>
+									<td>員工姓名</td>
+									<td>身份證字號</td>
+									<td>生日</td>
+									<td>性別</td>
+									<td>信箱</td>
+									<td>手機</td>
+									<td>市內電話</td>
+									<td>地址</td>
+									<td>職稱</td>
+									<td>狀態</td>
+									<td>權限</td>
+									<td></td>
+								</tr>
 
-				<tr>
-					<td>${staffVO.id}</td>
-					<td>${staffVO.name}</td>
-					<td>${staffVO.uid}</td>
-					<td>${staffVO.bth}</td>
-					<td>${staffVO.sex}</td>
-					<td>${staffVO.email}</td>
-					<td>${staffVO.phone}</td>
-					<td>${staffVO.tel}</td>
-					<td>${staffVO.add}</td>
-					<td>${staffVO.posi}</td>
-					<td>${staffVO.status == 0 ? "在職" : "離職"}</td>
-					<td>
-						<%-- 			<jsp:useBean id="adminFuncSvc" scope="page" --%> <%-- 						class="com.admin.model.service.AdminFuncService" /> --%>
-						<%-- 			<c:forEach var="adminFuncVO" items="${adminvo}"> --%> <%-- 							${adminFuncSvc.selectOne())} --%>
-						<%-- 			</c:forEach> --%>
+								<%@ include file="page1.file"%>
+								<c:forEach var="staffVO" items="${list}" begin="<%=pageIndex%>"
+									end="<%=pageIndex+rowsPerPage-1%>">
 
-					</td>
-					<td>
-						<FORM METHOD="post"
-							ACTION="<%=request.getContextPath()%>/backstage/staff/register"
-							style="margin-bottom: 0px;">
-							<input type="submit" value="修改"> <input type="hidden"
-								name="staffId" value="${staffVO.getId()}"> <input
-								type="hidden" name="action" value="updateTemp">
-						</FORM>
-					</td>
+									<tr>
+										<td>${staffVO.id}</td>
+										<td>${staffVO.name}</td>
+										<td>${staffVO.uid}</td>
+										<td>${staffVO.bth}</td>
+										<td>${staffVO.sex}</td>
+										<td>${staffVO.email}</td>
+										<td>${staffVO.phone}</td>
+										<td>${staffVO.tel}</td>
+										<td>${staffVO.add}</td>
+										<td>${staffVO.posi}</td>
+										<td>${staffVO.status == 0 ? "在職" : "離職"}</td>
+										<td>
+											<%-- 			<jsp:useBean id="adminFuncSvc" scope="page" --%> <%-- 						class="com.admin.model.service.AdminFuncService" /> --%>
+											<%-- 			<c:forEach var="adminFuncVO" items="${adminvo}"> --%>
+											<%-- 							${adminFuncSvc.selectOne())} --%> <%-- 			</c:forEach> --%>
 
-				</tr>
-			</c:forEach>
+										</td>
+										<td>
+											<FORM METHOD="post"
+												ACTION="<%=request.getContextPath()%>/ipet-back/staff/edit"
+												style="margin-bottom: 0px;">
+												<input type="submit" value="修改"> <input
+													type="hidden" name="staffId" value="${staffVO.getId()}">
+												<input type="hidden" name="action" value="updateTemp">
+											</FORM>
+										</td>
+
+									</tr>
+								</c:forEach>
 
 
-		</table>
-		<%@ include file="page2.file"%>
+							</table>
+							<%@ include file="page2.file"%>
+						<div class="col-sm-6">
 
+						</div>
+					</div>
+				</div>
+				<!-- /.container-fluid -->
+			</section>
+
+			<!-- Main content -->
+
+			<!-- /.content -->
+		</div>
+		<!-- /.content-wrapper -->
+
+
+		<!-- Main Footer -->
+		<%@ include file="/templates/backstage/common/footer.jsp"%>
 	</div>
 	<!-- ./wrapper -->
+
+	<!-- REQUIRED SCRIPTS -->
 
 	<!-- jQuery -->
 	<script
 		src="${pageContext.request.contextPath}/static/backstage/plugins/jquery/jquery.min.js"></script>
-	<script
-		src="${pageContext.request.contextPath}/static/backstage/plugins/jquery-ui/jquery-ui.min.js"></script>
-	<!-- Bootstrap 4 -->
+	<!-- Bootstrap -->
 	<script
 		src="${pageContext.request.contextPath}/static/backstage/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 	<!-- AdminLTE -->
 	<script
 		src="${pageContext.request.contextPath}/static/backstage/js/adminlte.js"></script>
-
-	
 </body>
 </html>

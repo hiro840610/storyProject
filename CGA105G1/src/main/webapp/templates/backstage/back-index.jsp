@@ -1,5 +1,23 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.web.staff.model.service.*"%>
+<%@ page import="com.web.staff.model.entity.*"%>
+<%@ page import="com.web.admin.model.service.*"%>
+<%@ page import="com.web.admin.model.entities.*"%>
 
+
+
+<%
+StaffService staffSvc = new StaffService();
+List<Staff> list = staffSvc.getAll();
+pageContext.setAttribute("list", list);
+%>
+<%
+AdminService adminSvc = new AdminService();
+List<Admin> adminvo = adminSvc.getAll();
+pageContext.setAttribute("adminvo", adminvo);
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,6 +60,65 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
+          <form action="register.jsp">
+			<input id="addNew" type="submit" value="新增員工">
+		</form>
+		<table>
+			<tr>
+				<td>員工編號</td>
+				<td>員工姓名</td>
+				<td>身份證字號</td>
+				<td>生日</td>
+				<td>性別</td>
+				<td>信箱</td>
+				<td>手機</td>
+				<td>市內電話</td>
+				<td>地址</td>
+				<td>職稱</td>
+				<td>狀態</td>
+				<td>權限</td>
+				<td></td>
+			</tr>
+
+			<%@ include file="staff/page1.file"%>
+			<c:forEach var="staffVO" items="${list}" begin="<%=pageIndex%>"
+				end="<%=pageIndex+rowsPerPage-1%>">
+
+				<tr>
+					<td>${staffVO.id}</td>
+					<td>${staffVO.name}</td>
+					<td>${staffVO.uid}</td>
+					<td>${staffVO.bth}</td>
+					<td>${staffVO.sex}</td>
+					<td>${staffVO.email}</td>
+					<td>${staffVO.phone}</td>
+					<td>${staffVO.tel}</td>
+					<td>${staffVO.add}</td>
+					<td>${staffVO.posi}</td>
+					<td>${staffVO.status == 0 ? "在職" : "離職"}</td>
+					<td>
+						<%-- 			<jsp:useBean id="adminFuncSvc" scope="page" --%> <%-- 						class="com.admin.model.service.AdminFuncService" /> --%>
+						<%-- 			<c:forEach var="adminFuncVO" items="${adminvo}"> --%> <%-- 							${adminFuncSvc.selectOne())} --%>
+						<%-- 			</c:forEach> --%>
+
+					</td>
+					<td>
+						<FORM METHOD="post"
+							ACTION="<%=request.getContextPath()%>/backstage/staff/register"
+							style="margin-bottom: 0px;">
+							<input type="submit" value="修改"> <input type="hidden"
+								name="staffId" value="${staffVO.getId()}"> <input
+								type="hidden" name="action" value="updateTemp">
+						</FORM>
+					</td>
+
+				</tr>
+			</c:forEach>
+
+
+		</table>
+		<%@ include file="staff/page2.file"%>
+          
           </div>
         </div>
       </div><!-- /.container-fluid -->

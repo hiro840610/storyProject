@@ -6,7 +6,6 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
-import com.web.appoint.model.entities.AppointmentDetail.PK;
 
 @Entity
 @IdClass(Admin.class)
