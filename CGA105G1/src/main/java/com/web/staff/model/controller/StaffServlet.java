@@ -47,13 +47,13 @@ public class StaffServlet extends HttpServlet {
 			Integer staffId = Integer.valueOf(req.getParameter("staffId"));
 			StaffService staffSvc = new StaffService();
 			AdminService adminSvc = new AdminService();
-			Admin admin = adminSvc.getOneAdmin(staffId);
+			
+			Admin admin = adminSvc.getOneAdminByInt(staffId);
+			
 			Staff staff = staffSvc.getStaff(staffId);
-			System.out.println("before add admin");
-			System.out.println(admin);
 			req.setAttribute("staff", staff);
 			req.setAttribute("admin", admin);
-			String url = "update.jsp";
+			String url = "/templates/backstage/staff/update.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}

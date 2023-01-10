@@ -26,15 +26,26 @@ public class AdminDAOImpl implements AdminDAO {
 	    }
 
 	@Override
-	public Admin getById(Integer staffId) {
+	public Admin getById(Admin.PK staffId) {
 		Session session = getSession();
         return session.get(Admin.class, staffId);
 	}
 
 	@Override
-	public Integer add(Admin admin) {
+	public Admin.PK add(Admin admin) {
 		Session session = getSession();
         session.persist(admin);
-        return admin.getStaffID();
+        Admin.PK pk = new Admin.PK();
+        pk.adminID = admin.getAdminID();
+        pk.staffID = admin.getStaffID();
+        return pk;
+	}
+	
+	public Admin getOneAdminByInt(Integer staffId) {
+		Session session = getSession();
+		String hql = "FROM Admin WHERE staffID = :staffid ";
+		
+        return session.createQuery(hql,Admin.class)
+        		.setParameter("staffid", staffId).uniqueResult();
 	}
 }

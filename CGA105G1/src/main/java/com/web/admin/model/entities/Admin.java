@@ -20,10 +20,11 @@ public class Admin implements java.io.Serializable {
 		private static final long serialVersionUID = 1L;
 		@Id
 		@Column(name = "ADMIN_PER_ID")
-		private Integer adminID;
+		public Integer adminID;
 		@Id
 		@Column(name = "STAFF_ID")
-		private Integer staffID;
+		public Integer staffID;
+	
 	}
 
 	private static final long serialVersionUID = 1L;

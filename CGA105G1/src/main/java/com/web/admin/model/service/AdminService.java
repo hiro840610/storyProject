@@ -26,10 +26,13 @@ public class AdminService {
 		return dao.getAll();
 	}
 	
-	public Admin getOneAdmin(Integer staffId) {
+	public Admin getOneAdmin(Admin.PK staffId) {
 		return dao.getById(staffId);
 	}
 	
+	public Admin getOneAdminByInt(Integer staffId) {
+		return ((AdminDAOImpl) dao).getOneAdminByInt(staffId);
+	}
 	
 	
 }
