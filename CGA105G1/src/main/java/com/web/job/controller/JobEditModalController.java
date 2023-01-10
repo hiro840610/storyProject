@@ -3,8 +3,8 @@ package com.web.job.controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.web.job.model.entities.JobSchedule;
-import com.web.job.services.JobSchduleServices;
-import com.web.job.services.imp.JobSchduleServicesImp;
+import com.web.job.model.services.JobSchduleServices;
+import com.web.job.model.services.imp.JobSchduleServicesImp;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

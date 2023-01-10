@@ -1,6 +1,6 @@
-package com.web.appoint.services.imp;
+package com.web.appoint.model.services.imp;
 
-import com.web.appoint.services.AppointDetailServices;
+import com.web.appoint.model.services.AppointDetailServices;
 import com.web.appoint.model.dao.imp.AppointmentDetailImp;
 import com.web.appoint.model.entities.AppointmentDetail;
 

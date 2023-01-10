@@ -1,15 +1,14 @@
 package com.web.job.controller;
 
 import com.web.job.model.entities.JobSchedule;
-import com.web.job.services.JobSchduleServices;
-import com.web.job.services.imp.JobSchduleServicesImp;
+import com.web.job.model.services.JobSchduleServices;
+import com.web.job.model.services.imp.JobSchduleServicesImp;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
 
 /**

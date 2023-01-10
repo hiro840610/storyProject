@@ -1,6 +1,6 @@
-package com.web.appoint.services;
+package com.web.appoint.model.services;
 
-import com.core.service.CoreService;
+import com.core.model.service.CoreService;
 import com.web.appoint.model.entities.AppointmentDetail;
 
 import java.util.List;

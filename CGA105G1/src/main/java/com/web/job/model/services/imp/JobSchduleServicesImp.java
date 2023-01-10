@@ -1,10 +1,10 @@
-package com.web.job.services.imp;
+package com.web.job.model.services.imp;
 
 import com.web.appoint.model.dao.imp.AppointmentImp;
 import com.web.appoint.model.entities.Appointment;
 import com.web.job.model.dao.JobScheduleImp;
 import com.web.job.model.entities.JobSchedule;
-import com.web.job.services.JobSchduleServices;
+import com.web.job.model.services.JobSchduleServices;
 
 import java.sql.Date;
 import java.util.*;
@@ -16,6 +16,7 @@ import java.util.*;
 public class JobSchduleServicesImp implements JobSchduleServices {
     private final JobScheduleImp jobScheduleImp = new JobScheduleImp();
     private final AppointmentImp appointmentImp = new AppointmentImp();
+
     // TODO: private StaffImp staffImp
 
     @Override

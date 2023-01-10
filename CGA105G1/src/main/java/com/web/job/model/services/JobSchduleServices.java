@@ -1,10 +1,9 @@
-package com.web.job.services;
+package com.web.job.model.services;
 
 import com.web.job.model.entities.JobSchedule;
-import com.core.service.CoreService;
+import com.core.model.service.CoreService;
 
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 /**

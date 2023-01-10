@@ -1,4 +1,4 @@
-package com.admin.model.vo;
+package com.web.admin.model.vo;
 
 public class AdminVO {
 		private Integer adminID;

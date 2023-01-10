@@ -1,4 +1,4 @@
-package com.core.service;
+package com.core.model.service;
 
 import com.core.util.HibernateUtil;
 import org.hibernate.Session;

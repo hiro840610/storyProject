@@ -1,11 +1,11 @@
-package com.web.appoint.services.imp;
+package com.web.appoint.model.services.imp;
 
 import com.web.job.model.entities.JobSchedule;
 import com.web.appoint.model.dao.imp.AppointmentDetailImp;
 import com.web.appoint.model.dao.imp.AppointmentImp;
 import com.web.appoint.model.entities.Appointment;
 import com.web.appoint.model.entities.AppointmentDetail;
-import com.web.appoint.services.AppointServices;
+import com.web.appoint.model.services.AppointServices;
 import com.web.job.model.dao.JobScheduleImp;
 
 

@@ -5,8 +5,8 @@ package com.web.appoint.controller;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.web.appoint.model.entities.Appointment;
-import com.web.appoint.services.AppointServices;
-import com.web.appoint.services.imp.AppointServicesImp;
+import com.web.appoint.model.services.AppointServices;
+import com.web.appoint.model.services.imp.AppointServicesImp;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
