@@ -27,17 +27,16 @@ public class JobAddModalController extends HttpServlet {
         String[] periods = null;
         Map<String, Object> map = new HashMap<>();
 
-        if (req.getParameter("groomerID") != null){
+        if (req.getParameter("groomerID") != null && !req.getParameter("groomerID").trim().equals("")){
             groomerID =  Integer.parseInt(req.getParameter("groomerID"));
         }
-        if (req.getParameter("asstID1") != null){
+        if (req.getParameter("asstID1") != null && !req.getParameter("asstID1").trim().equals("")){
             asstID1 = Integer.parseInt(req.getParameter("asstID1"));
         }
-        if (req.getParameter("asstID1") != null){
+        if (req.getParameter("asstID2") != null && !req.getParameter("asstID2").trim().equals("")){
             asstID2 = Integer.parseInt(req.getParameter("asstID2"));
         }
-
-        if (req.getParameterValues("period[]") != null) {
+        if (req.getParameterValues("period[]") != null && req.getParameterValues("period[]").length != 0 ) {
             periods = req.getParameterValues("period[]");
         }
 
@@ -48,7 +47,6 @@ public class JobAddModalController extends HttpServlet {
             for (String str : periods){
                 illegalDates.addAll(jobSchduleServices.findIllegalDatesToAddJobs(groomerID, asstID1, asstID2, str));
             }
-
             map.put("illegalDate", illegalDates);
         }else{
             map.put("illegalDate", null);
