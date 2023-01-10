@@ -100,7 +100,7 @@ input#addNew:hover, #search:hover {
 									<td>地址</td>
 									<td>職稱</td>
 									<td>狀態</td>
-									<td>權限</td>
+<!-- 									<td>權限</td> -->
 									<td></td>
 								</tr>
 
@@ -120,12 +120,12 @@ input#addNew:hover, #search:hover {
 										<td>${staffVO.add}</td>
 										<td>${staffVO.posi}</td>
 										<td>${staffVO.status == 0 ? "在職" : "離職"}</td>
-										<td>
+<!-- 										<td> -->
 											<%-- 			<jsp:useBean id="adminFuncSvc" scope="page" --%> <%-- 						class="com.admin.model.service.AdminFuncService" /> --%>
 											<%-- 			<c:forEach var="adminFuncVO" items="${adminvo}"> --%>
 											<%-- 							${adminFuncSvc.selectOne())} --%> <%-- 			</c:forEach> --%>
 
-										</td>
+<!-- 										</td> -->
 										<td>
 											<FORM METHOD="post"
 												ACTION="<%=request.getContextPath()%>/ipet-back/staff/edit"

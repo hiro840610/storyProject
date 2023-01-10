@@ -16,24 +16,25 @@ import com.web.admin.model.entities.Admin;
 import com.web.admin.model.service.AdminService;
 import com.web.staff.model.entity.Staff;
 import com.web.staff.model.service.StaffService;
-@WebServlet({"/ipet-back/staff/allStaffList","/ipet-back/staff/edit","/ipet-back/staff/addNew"})
+
+@WebServlet({ "/ipet-back/staff/allStaffList", "/ipet-back/staff/edit", "/ipet-back/staff/addNew" })
 public class StaffServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
+
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String path = req.getServletPath();
-		if ("/ipet-back/staff/allStaffList".equals(path)){
+		if ("/ipet-back/staff/allStaffList".equals(path)) {
 			StaffService staffSvc = new StaffService();
 			List<Staff> list = staffSvc.getAll();
 			req.setAttribute("list", list);
 			req.getRequestDispatcher("/templates/backstage/staff/staffList.jsp").forward(req, res);
-	}
-		if("/ipet-back/staff/addNew".equals(path)) {
+		}
+		if ("/ipet-back/staff/addNew".equals(path)) {
 			req.getRequestDispatcher("/templates/backstage/staff/register.jsp").forward(req, res);
 		}
-		
-		
-}
+
+	}
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
@@ -213,7 +214,7 @@ public class StaffServlet extends HttpServlet {
 
 			if (adminStr == null) {
 				errorMsgs.add("請選擇權限");
-			} 
+			}
 			return errorMsgs;
 		}
 		return errorMsgs;
