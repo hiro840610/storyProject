@@ -16,7 +16,7 @@ import com.web.admin.model.entities.Admin;
 import com.web.admin.model.service.AdminService;
 import com.web.staff.model.entity.Staff;
 import com.web.staff.model.service.StaffService;
-@WebServlet({"/ipet-back/staff/allStaffList","/ipet-back/staff/edit"})
+@WebServlet({"/ipet-back/staff/allStaffList","/ipet-back/staff/edit","/ipet-back/staff/addNew"})
 public class StaffServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -28,6 +28,11 @@ public class StaffServlet extends HttpServlet {
 			req.setAttribute("list", list);
 			req.getRequestDispatcher("/templates/backstage/staff/staffList.jsp").forward(req, res);
 	}
+		if("/ipet-back/staff/addNew".equals(path)) {
+			req.getRequestDispatcher("/templates/backstage/staff/register.jsp").forward(req, res);
+		}
+		
+		
 }
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

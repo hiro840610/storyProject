@@ -6,13 +6,13 @@
         <A href="<%=request.getRequestURI()%>?whichPage=<%=whichPage-1%>">上一頁 </A>&nbsp;
     <%}%>
   
+<br><br>
     <%if(pageIndex<pageIndexArray[pageNumber-1]){%>
         <A href="<%=request.getRequestURI()%>?whichPage=<%=whichPage+1%>">下一頁 </A>&nbsp;
         <A href="<%=request.getRequestURI()%>?whichPage=<%=pageNumber%>">至最後一頁</A>&nbsp;
     <%}%>
   <%}%>  
 
-<br><br>
 <%if (pageNumber>0){%>
   <b><font color=orange>第<%=whichPage%>/<%=pageNumber%>頁</font></b>
 <%}%>

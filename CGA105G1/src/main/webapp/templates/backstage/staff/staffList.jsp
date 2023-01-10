@@ -83,7 +83,7 @@ input#addNew:hover, #search:hover {
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<div class="container-fluid">
-						<form action="register.jsp">
+						<form action="${pageContext.request.contextPath}/ipet-back/staff/addNew">
 							<input id="addNew" type="submit" value="新增員工">
 						</form>
 					<div class="row mb-2">
@@ -135,14 +135,11 @@ input#addNew:hover, #search:hover {
 												<input type="hidden" name="action" value="updateTemp">
 											</FORM>
 										</td>
-
 									</tr>
 								</c:forEach>
-
-
 							</table>
-							<%@ include file="page2.file"%>
 						<div class="col-sm-6">
+							<%@ include file="page2.file"%>
 
 						</div>
 					</div>
