@@ -1,14 +1,22 @@
-package com.web.news.model.vo;
+package com.web.news.model.entity;
 
 import java.sql.Date;
 
-public class NewsVO implements java.io.Serializable {
+public class News implements java.io.Serializable {
 	private static final long serialVersionUID = 1L;
 	private Integer id;
 	private String title;
 	private String text;
 	private Date time;
+	public News() {}
 	
+	public News(Integer id, String title, String text, Date time) {
+		super();
+		this.id = id;
+		this.title = title;
+		this.text = text;
+		this.time = time;
+	}
 	public Integer getId() {
 		return id;
 	}

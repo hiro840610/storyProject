@@ -3,46 +3,47 @@ package com.web.news.model.dao;
 
 import java.util.List;
 import org.hibernate.Session;
-import com.web.news.model.vo.NewsVO;
+
+import com.web.news.model.entity.News;
 
 public class NewsDAOImpl implements NewsDAO {
 	
 	@Override
-	public void update(NewsVO newsVO) {
+	public void update(News news) {
 		Session session = getSession();
-		NewsVO oldNewsVO = session.get(NewsVO.class, newsVO.getId());
-		oldNewsVO.setId(newsVO.getId());
-		oldNewsVO.setTitle(newsVO.getTitle());
-		oldNewsVO.setText(newsVO.getText());
+		News oldNewsVO = session.get(News.class, news.getId());
+		oldNewsVO.setId(news.getId());
+		oldNewsVO.setTitle(news.getTitle());
+		oldNewsVO.setText(news.getText());
 	}
 	
 	@Override
 	public void delete(Integer newsID) {
 		Session session = getSession();
-		NewsVO newsVO = new NewsVO();
-		newsVO.setId(newsID);
-		session.remove(newsVO);
+		News news = new News();
+		news.setId(newsID);
+		session.remove(news);
 	}
 		
 
 	@Override
-	public List<NewsVO> getAll() {
+	public List<News> getAll() {
 		Session session = getSession();
 		String hql = "FROM ipetdb.news";
-		return session.createQuery(hql,NewsVO.class).list();
+		return session.createQuery(hql,News.class).list();
 	}
 
 	@Override
-	public NewsVO getById(Integer newsID) {
+	public News getById(Integer newsID) {
 		Session session = getSession();
-		return session.get(NewsVO.class, newsID);
+		return session.get(News.class, newsID);
 	}
 
 	@Override
-	public Integer add(NewsVO newsVO) {
+	public Integer add(News news) {
 		Session session = getSession();
-		session.persist(newsVO);
-		return newsVO.getId();
+		session.persist(news);
+		return news.getId();
 
 	}
 

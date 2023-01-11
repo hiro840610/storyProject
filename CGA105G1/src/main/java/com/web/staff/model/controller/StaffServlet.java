@@ -17,7 +17,7 @@ import com.web.admin.model.service.AdminService;
 import com.web.staff.model.entity.Staff;
 import com.web.staff.model.service.StaffService;
 
-@WebServlet({ "/ipet-back/staff/allStaffList", "/ipet-back/staff/edit", "/ipet-back/staff/addNew" })
+@WebServlet({ "/ipet-back/staff/allStaffList", "/ipet-back/staff/edit", "/ipet-back/staff/addNew","/ipet-back/staff/getAllList" })
 public class StaffServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -32,6 +32,9 @@ public class StaffServlet extends HttpServlet {
 		}
 		if ("/ipet-back/staff/addNew".equals(path)) {
 			req.getRequestDispatcher("/templates/backstage/staff/register.jsp").forward(req, res);
+		}
+		if("/ipet-back/staff/getAllList".equals(path)) {
+			req.getRequestDispatcher("/templates/backstage/staff/staffList.jsp").forward(req, res);
 		}
 
 	}
@@ -49,8 +52,8 @@ public class StaffServlet extends HttpServlet {
 			AdminService adminSvc = new AdminService();
 			
 			Admin admin = adminSvc.getOneAdminByInt(staffId);
-			
 			Staff staff = staffSvc.getStaff(staffId);
+			
 			req.setAttribute("staff", staff);
 			req.setAttribute("admin", admin);
 			String url = "/templates/backstage/staff/update.jsp";
@@ -100,7 +103,7 @@ public class StaffServlet extends HttpServlet {
 		staffSvc.updateStaff(staff);
 
 //			轉交
-		String url = "staffList.jsp";
+		String url = "/templates/backstage/staff/staffList.jsp";
 		RequestDispatcher successView = req.getRequestDispatcher(url);
 		successView.forward(req, res);
 	}
@@ -155,7 +158,7 @@ public class StaffServlet extends HttpServlet {
 
 		AdminService adminSvc = new AdminService();
 		for (int idx = 0; idx < adminInt.length; idx++) {
-			Admin adminVO = adminSvc.addAdminOnStaff(adminInt[idx], id);
+			Admin admin = adminSvc.addAdminOnStaff(adminInt[idx], id);
 		}
 //			轉交
 		String url = "staffList.jsp";

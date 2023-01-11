@@ -43,14 +43,17 @@ table, th, td {
 	border: 1px solid white;
 	border-collapse: collapse;
 }
+
 th, td {
 	background-color: pink;
 }
+
 input#addNew {
 	background-color: lightgray;
 	border: none;
 	border-radius: 5px;
 }
+
 input#addNew:hover, #search:hover {
 	cursor: pointer;
 }
@@ -83,61 +86,62 @@ input#addNew:hover, #search:hover {
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<div class="container-fluid">
-						<form action="${pageContext.request.contextPath}/ipet-back/staff/addNew">
-							<input id="addNew" type="submit" value="新增員工">
-						</form>
+					<form
+						action="${pageContext.request.contextPath}/ipet-back/staff/addNew">
+						<input id="addNew" type="submit" value="新增員工">
+					</form>
 					<div class="row mb-2">
-							<table>
+						<table>
+							<tr>
+								<td>員工編號</td>
+								<td>員工姓名</td>
+								<td>身份證字號</td>
+								<td>生日</td>
+								<td>性別</td>
+								<td>信箱</td>
+								<td>手機</td>
+								<td>市內電話</td>
+								<td>地址</td>
+								<td>職稱</td>
+								<td>狀態</td>
+								<!-- 									<td>權限</td> -->
+								<td></td>
+							</tr>
+
+							<%@ include file="page1.file"%>
+							<c:forEach var="staffVO" items="${list}" begin="<%=pageIndex%>"
+								end="<%=pageIndex+rowsPerPage-1%>">
+
 								<tr>
-									<td>員工編號</td>
-									<td>員工姓名</td>
-									<td>身份證字號</td>
-									<td>生日</td>
-									<td>性別</td>
-									<td>信箱</td>
-									<td>手機</td>
-									<td>市內電話</td>
-									<td>地址</td>
-									<td>職稱</td>
-									<td>狀態</td>
-<!-- 									<td>權限</td> -->
-									<td></td>
-								</tr>
-
-								<%@ include file="page1.file"%>
-								<c:forEach var="staffVO" items="${list}" begin="<%=pageIndex%>"
-									end="<%=pageIndex+rowsPerPage-1%>">
-
-									<tr>
-										<td>${staffVO.id}</td>
-										<td>${staffVO.name}</td>
-										<td>${staffVO.uid}</td>
-										<td>${staffVO.bth}</td>
-										<td>${staffVO.sex}</td>
-										<td>${staffVO.email}</td>
-										<td>${staffVO.phone}</td>
-										<td>${staffVO.tel}</td>
-										<td>${staffVO.add}</td>
-										<td>${staffVO.posi}</td>
-										<td>${staffVO.status == 0 ? "在職" : "離職"}</td>
-<!-- 										<td> -->
-											<%-- 			<jsp:useBean id="adminFuncSvc" scope="page" --%> <%-- 						class="com.admin.model.service.AdminFuncService" /> --%>
-											<%-- 			<c:forEach var="adminFuncVO" items="${adminvo}"> --%>
-											<%-- 							${adminFuncSvc.selectOne())} --%> <%-- 			</c:forEach> --%>
-
-<!-- 										</td> -->
-										<td>
-											<FORM METHOD="post"
-												ACTION="<%=request.getContextPath()%>/ipet-back/staff/edit"
-												style="margin-bottom: 0px;">
-												<input type="submit" value="修改"> <input
-													type="hidden" name="staffId" value="${staffVO.getId()}">
-												<input type="hidden" name="action" value="updateTemp">
-											</FORM>
+									<td>${staffVO.id}</td>
+									<td>${staffVO.name}</td>
+									<td>${staffVO.uid}</td>
+									<td>${staffVO.bth}</td>
+									<td>${staffVO.sex}</td>
+									<td>${staffVO.email}</td>
+									<td>${staffVO.phone}</td>
+									<td>${staffVO.tel}</td>
+									<td>${staffVO.add}</td>
+									<td>${staffVO.posi}</td>
+									<td>${staffVO.status == 0 ? "在職" : "離職"}</td>
+									<td><jsp:useBean id="adminFuncSvc" scope="page"
+											class="com.web.admin.model.service.AdminFuncService" /> <c:forEach
+											var="adminFunc" items="${admin}">
+													${AdminFunc.getName()}			
+										</c:forEach>
 										</td>
-									</tr>
-								</c:forEach>
-							</table>
+									<td>
+										<FORM METHOD="post"
+											ACTION="<%=request.getContextPath()%>/ipet-back/staff/edit"
+											style="margin-bottom: 0px;">
+											<input type="submit" value="修改"> <input type="hidden"
+												name="staffId" value="${staffVO.getId()}"> <input
+												type="hidden" name="action" value="updateTemp">
+										</FORM>
+									</td>
+								</tr>
+							</c:forEach>
+						</table>
 						<div class="col-sm-6">
 							<%@ include file="page2.file"%>
 

@@ -18,19 +18,30 @@ public class AdminFunc implements java.io.Serializable {
 	private Integer id;
 	@Column(name = "NAME")
 	private String name;
-	
+
+	public AdminFunc() {
+	}
+
+	public AdminFunc(Integer id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+
 	public Integer getAdminID() {
 		return id;
 	}
+
 	public void setAdminID(Integer id) {
 		this.id = id;
 	}
+
 	public String getAdminName() {
 		return name;
 	}
+
 	public void setAdminName(String name) {
 		this.name = name;
 	}
-	
-	
+
 }

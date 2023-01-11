@@ -14,9 +14,7 @@ import javax.persistence.Table;
 public class Admin implements java.io.Serializable {
 
 	public static class PK implements Serializable {
-		/**
-		 * 
-		 */
+		
 		private static final long serialVersionUID = 1L;
 		@Id
 		@Column(name = "ADMIN_PER_ID")
@@ -34,6 +32,14 @@ public class Admin implements java.io.Serializable {
 	@Id
 	@Column(name = "STAFF_ID")
 	private Integer staffID;
+	
+	public Admin() {}
+
+	public Admin(Integer adminID, Integer staffID) {
+		super();
+		this.adminID = adminID;
+		this.staffID = staffID;
+	}
 
 	public Integer getAdminID() {
 		return adminID;

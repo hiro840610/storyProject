@@ -23,7 +23,7 @@
 			class="com.web.appoint.model.entities.AppointmentDetail" />
 		<mapping class="com.web.job.model.entities.JobSchedule" />
 		<mapping class="com.web.staff.model.entity.Staff" />
-		<mapping class="com.web.news.model.vo.NewsVO" />
+		<mapping class="com.web.news.model.entity.News" />
 		<mapping class="com.web.admin.model.entities.AdminFunc" />
 		<mapping class="com.web.admin.model.entities.Admin" />
 	</session-factory>

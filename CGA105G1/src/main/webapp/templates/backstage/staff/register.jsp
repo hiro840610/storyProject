@@ -1,3 +1,4 @@
+
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -83,7 +84,7 @@ input#allStaff:hover, #search:hover {
 			<!-- Content Header (Page header) -->
 			<section class="content-header">
 				<div class="container-fluid">
-					<form action="staffList.jsp">
+					<form action="${pageContext.request.contextPath}/ipet-back/staff/getAllList">
 						<input id="allStaff" type="submit" value="員工列表">
 					</form>
 					
@@ -166,13 +167,13 @@ input#allStaff:hover, #search:hover {
 										<jsp:useBean id="adminFuncSvc" scope="page"
 											class="com.web.admin.model.service.AdminFuncService" />
 										<td><label>權限:</label></td>
-										<td><c:forEach var="adminFuncVO"
+										<td><c:forEach var="adminFunc"
 												items="${adminFuncSvc.getAll()}">
-												<label for="${adminFuncVO.getAdminID()}"
-													style="font-size: 10px;"><input type="checkbox"
-													name="admin" id="${adminFuncVO.getAdminID()}"
-													value="${adminFuncVO.getAdminID()} ">
-													${adminFuncVO.getAdminName()}</label>
+												<label for="${adminFunc.getAdminID()}"
+													style="font-size: 10px;"><input type="radio"
+													name="admin" id="${adminFunc.getAdminID()}"
+													value="${adminFunc.getAdminID()} ">
+													${adminFunc.getAdminName()}</label>
 											</c:forEach></td>
 									</tr>
 									<tr>

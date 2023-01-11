@@ -8,9 +8,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.apache.taglibs.standard.lang.jstl.test.beans.PublicBean1;
+
+import com.core.model.entities.Core;
 @Entity
 @Table(name = "Staff", catalog = "ipetdb")
-public class Staff implements java.io.Serializable {
+public class Staff extends Core {
+	
 	private static final long serialVersionUID = 1L;
 	@Column(name = "ID")
 	@Id
@@ -41,7 +46,29 @@ public class Staff implements java.io.Serializable {
 	@Column(name = "POSI")
 	private String posi;
 	
+	public  Staff() {}
 	
+	
+
+	public Staff(Integer id, String name, String uid, Date bth, String sex, String email, String phone, String tel,
+			String add, String ac, String pw, Integer status, String posi) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.uid = uid;
+		this.bth = bth;
+		this.sex = sex;
+		this.email = email;
+		this.phone = phone;
+		this.tel = tel;
+		this.add = add;
+		this.ac = ac;
+		this.pw = pw;
+		this.status = status;
+		this.posi = posi;
+	}
+
+
 
 	public Integer getId() {
 		return id;

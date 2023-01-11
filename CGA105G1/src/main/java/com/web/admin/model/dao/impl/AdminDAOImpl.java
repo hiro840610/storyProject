@@ -16,7 +16,6 @@ public class AdminDAOImpl implements AdminDAO {
 		oldAdmin.setStaffID(admin.getStaffID());
 	
 	}
-		
 	
 	@Override
 	public List<Admin> getAll() {
@@ -46,6 +45,15 @@ public class AdminDAOImpl implements AdminDAO {
 		String hql = "FROM Admin WHERE staffID = :staffid ";
 		
         return session.createQuery(hql,Admin.class)
-        		.setParameter("staffid", staffId).uniqueResult();
+        		.setParameter("staffid", staffId).getSingleResult();
 	}
+	
+	public List<Admin.PK> getPk(Integer staffId){
+		Session session = getSession();
+		String hql = "FROM Admin WHERE staffID = :staffid ";
+		return session.createQuery(hql,Admin.PK.class)
+        		.setParameter("staffid", staffId).getResultList();
+	}
+
+
 }

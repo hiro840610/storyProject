@@ -34,5 +34,8 @@ public class AdminService {
 		return ((AdminDAOImpl) dao).getOneAdminByInt(staffId);
 	}
 	
+	public List<Admin.PK> getPk(Integer staffId){
+		return ((AdminDAOImpl) dao).getPk(staffId)
+;	}
 	
 }
