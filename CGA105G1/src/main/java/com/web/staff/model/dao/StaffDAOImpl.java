@@ -52,4 +52,11 @@ public class StaffDAOImpl implements StaffDAO {
 		return staff.getId();
 	}
 
+	public Staff getStaffByName(String name) {
+		Session session = getSession();
+		String hql = "FROM Staff WHERE name = :name";
+		
+		return  session.createQuery(hql,Staff.class)
+				.setParameter("name",name).getSingleResult();
+	}
 }

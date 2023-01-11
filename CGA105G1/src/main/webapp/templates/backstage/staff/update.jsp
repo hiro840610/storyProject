@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="com.web.staff.model.entity.*"%>
 <%@ page import="com.web.admin.model.entities.*"%>
 
@@ -8,7 +10,12 @@
 Staff staff = (Staff) request.getAttribute("staff");
 %>
 <%
-Admin admin = (Admin) request.getAttribute("admin");
+// Admin admin = (Admin) request.getAttribute("admin");
+
+List<Admin.PK> adminpk = new ArrayList<>();
+for(Admin.PK pk: adminpk){
+ pk = (Admin.PK)request.getAttribute("adminpk");
+}
 %>
 <%
 AdminFunc adminFunc = (AdminFunc) request.getAttribute("adminFunc");

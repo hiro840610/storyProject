@@ -2,6 +2,7 @@ package com.web.staff.model.controller;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -51,11 +52,16 @@ public class StaffServlet extends HttpServlet {
 			StaffService staffSvc = new StaffService();
 			AdminService adminSvc = new AdminService();
 			
+//			List<Admin.PK> adminpk = adminSvc.getPk(staffId);
+			
 			Admin admin = adminSvc.getOneAdminByInt(staffId);
 			Staff staff = staffSvc.getStaff(staffId);
 			
-			req.setAttribute("staff", staff);
+//			req.setAttribute("adminpk", adminpk);
+			
 			req.setAttribute("admin", admin);
+			req.setAttribute("staff", staff);
+			
 			String url = "/templates/backstage/staff/update.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
