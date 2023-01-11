@@ -8,6 +8,7 @@ import com.web.appoint.model.entities.Appointment;
 import com.web.appoint.model.services.AppointServices;
 import com.web.appoint.model.services.imp.AppointServicesImp;
 
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,7 +39,6 @@ public class AppointController extends HttpServlet {
 
             List<Appointment> allServices = appointDetailServices.findAllAppoint();
             String allServicesJSON = gson.toJson(allServices);
-            allServicesJSON += "{ \"data\" :" + allServicesJSON + "}";
             req.setAttribute("appoints", allServicesJSON);
             req.getRequestDispatcher("/templates/backstage/salon/salonAppointAll.jsp").forward(req, resp);
 

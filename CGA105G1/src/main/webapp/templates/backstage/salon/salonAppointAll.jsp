@@ -106,6 +106,7 @@
                       <th>預約單狀態</th>
                       <th>班表編號</th>
                       <th>服務詳情</th>
+                      <th>顧客備註</th>
                       <th></th>
                     </tr>
                   </thead>
@@ -226,7 +227,8 @@
 <!-- DataTable show child row -->
 <script>
 
-  function format ( d ) {
+  function format (detailService) {
+    console.log(detailService.appointmentDetails);
     // `d` is the original data object for the row
     let tbody = `
         <tbody class="childTable">
@@ -240,38 +242,35 @@
           </tr>`;
 
 
-    for (let i = 0; i < d.serviceId.length; i ++){
+
+    //TODO: 從這裡開始
+    for (let detail of detailService.appointmentDetails){
       tbody += `
         <tr>
-            <td>\${d.serviceId[i]}</td>
-            <td>\${d.serviceName[i]}</td>
-            <td>\${d.servicePrice[i]}</td>
-            <td>\${d.saleId[i]}</td>
-            <td>\${d.saleName[i]}</td>
-            <td>\${d.salePrice[i]}</td>
+            <td>\${detail.svcId}</td>
+            <td>\${detail.svcName}</td>
+            <td>\${detail.svcPrice}</td>
+            <td>\${detail.saleId}</td>
+            <td>\${detail.saleName}</td>
+            <td>\${detail.salePrice}</td>
         </tr>
         `
     }
 
     tbody += `
-                <tr>
-                  <td colspan="6" style="border-top: 1px solid #dee2e6;
-                  border-right: 1px solid #dee2e6;
-                  border-bottom: 1px solid #dee2e6"><b>顧客備註</b>: \${d.clientNote}</td>
-                </tr>
                 </tbody>
             `;
     return tbody;
   }
   $(document).ready(function() {
+
     let table = $('#reserveTable').DataTable({
       autoWidth: false,
       responsive: true,
       lengthChange: true,
       info: true,
       altEditor: false,     // Enable altEditor
-      ajax:"${pageContext.request.contextPath}/ipet-back/appoint/appoints",
-      method: "GET",
+      data: ${appoints},
 
       //  填寫直接顯示的欄位，需要與thead tfoot 對應
       "columns": [
@@ -287,10 +286,15 @@
           className:      'details-control',
           orderable:      false,
           defaultContent: '',
-          responsivePriority: 5,
-          type: "readonly"
+          responsivePriority: 5
         },
+        {data: "customerNote", className: "customerNote", orderable: false},
         {
+          data: null,
+          defaultContent:
+                  '<button type="submit" class="btn btn-light" data-toggle="modal" data-target="#EditModal" data-whatever="@mdo">' +
+                  '<i class="fas fa-solid fa-pen"></i>' +
+                  '</button>',
           className: 'row-edit dt-center',
           orderable: false,
           responsivePriority: 6
@@ -300,28 +304,30 @@
         style: 'single',
         toggleable: false
       },
-      order: [[1, 'desc']]
+      order: [[0, 'desc']]
     });
 
 
 
 
     // Add event listener for opening and closing details
-    $('#reserveTable tbody').on('click', 'td.details-control', function () {
-      let tr = $(this).closest('tr');
-      let row = table.row( tr );
-      console.log(row.data());
+      $('#reserveTable tbody').on('click', 'td.details-control', function () {
+          let tr = $(this).closest('tr');
+          let row = table.row( tr );
+          console.log($(this).closest('tr'));
+          console.log("this is row:" + row.data());
 
-      if ( row.child.isShown() ) {
-        // This row is already open - close it
-        row.child.hide();
-        tr.removeClass('shown');
-      } else {
-        // Open this row
-        row.child($().html()).show();
-        tr.addClass('shown');
-      }
-    });
+          if ( row.child.isShown() ) {
+              // This row is already open - close it
+              row.child.hide();
+              tr.removeClass('shown');
+          }
+          else {
+              // Open this row
+              row.child(format(row.data())).show();
+              tr.addClass('shown');
+          }
+      });
 
 
 

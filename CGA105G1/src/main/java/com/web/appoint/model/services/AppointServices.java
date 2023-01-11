@@ -14,5 +14,6 @@ public interface AppointServices extends CoreService {
     Boolean deleteAppoint(Integer id);
     Appointment editAppoint(Appointment appointment);
     List<Appointment> findAllAppoint();
+    Appointment findAppointById(Integer id);
     List<Appointment> findAppointBasedOnStatus(Integer status);
 }

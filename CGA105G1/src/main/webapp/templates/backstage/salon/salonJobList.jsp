@@ -567,18 +567,23 @@
         method: "POST",
         data:{},
         success: function (resp){
-          empObjectAdd = JSON.parse(resp);
-          let groomerHTMLAdd = `<option disabled selected>請選擇</option>`;
-          for (let i = 0; i < empObjectAdd.groomerIds.length; i ++) {
-            groomerHTMLAdd += `<option value="\${empObjectAdd.groomerIds[i]}"> \${empObjectAdd.groomNames[i]}</option>`
-          }
-          $('#GROOMER_name-modal-add').html(groomerHTMLAdd);
+          if (resp !== "") {
+            empObjectAdd = JSON.parse(resp);
+            let groomerHTMLAdd = `<option disabled selected>請選擇</option>`;
+            for (let i = 0; i < empObjectAdd.groomerIds.length; i ++) {
+              groomerHTMLAdd += `<option value="\${empObjectAdd.groomerIds[i]}"> \${empObjectAdd.groomNames[i]}</option>`
+            }
+            $('#GROOMER_name-modal-add').html(groomerHTMLAdd);
 
-          let asst1HTMLAdd = `<option disabled selected>請選擇</option>`;
-          for (let i = 0; i < empObjectAdd.asstIds.length; i ++) {
-            asst1HTMLAdd += `<option value="\${empObjectAdd.asstIds[i]}"> \${empObjectAdd.asstNames[i]}</option>`
+            let asst1HTMLAdd = `<option disabled selected>請選擇</option>`;
+            for (let i = 0; i < empObjectAdd.asstIds.length; i ++) {
+              asst1HTMLAdd += `<option value="\${empObjectAdd.asstIds[i]}"> \${empObjectAdd.asstNames[i]}</option>`
+            }
+            $('#ASST_name_1-modal-add').html(asst1HTMLAdd);
+          }else {
+            $("#addModalMessage").html("無法查詢到美容師與助理，請洽網站管理員")
+                                 .css("color","red")
           }
-          $('#ASST_name_1-modal-add').html(asst1HTMLAdd);
         }
       })
     });
@@ -598,6 +603,77 @@
       $('#schDate-modal-add').prop("disabled", true);
     });
 
+
+    // 查詢可以新增的班表日期
+    $("#searchAvailableDatesAdd").on("click", function (){
+      // check which period is selected
+      for (let p of $('input.jobPeriod-add:checked')){
+        period.push(p.value);
+      }
+
+      //所有資訊填寫完畢才可以查詢日期
+
+      if ($('#GROOMER_name-modal-add').val() !== null &&
+              $('#ASST_name_1-modal-add').val() !== null &&
+              $('#ASST_name_2-modal-add').val() !== null &&
+              period.length !== 0){
+        // 根據員工 時段 來封鎖不可選擇的日期
+        $.ajax({
+          url:"${pageContext.request.contextPath}/ipet-back/job/addModalInput",
+          method: "POST",
+          data:{
+            groomerID: $('#GROOMER_name-modal-add').val(),
+            asstID1: $('#ASST_name_1-modal-add').val(),
+            asstID2: $('#ASST_name_2-modal-add').val(),
+            period: period
+          },
+          success: function(resp){
+            console.log("resp: " + resp);
+            if (resp !== ""){
+              empObjectAdd = JSON.parse(resp);
+              // 移除舊 日曆
+              $('#schDate-modal-add').multiDatesPicker("destroy");
+              if (empObjectAdd.illegalDate.length !== 0) {
+                // 將不能使用的date鎖起來
+                $('#schDate-modal-add').multiDatesPicker({
+                  dateFormat: 'yy-mm-dd',
+                  minDate: 0,
+                  addDisabledDates: empObjectAdd.illegalDate
+                });
+              }else{
+                // 沒有不能使用的班表日期
+                $('#schDate-modal-add').multiDatesPicker({
+                  dateFormat: 'yy-mm-dd',
+                  minDate: 0
+                });
+              }
+              
+              // https://github.com/dubrox/Multiple-Dates-Picker-for-jQuery-UI/issues/67
+              <!-- 解決 MultiDatePicker 閃爍問題並處理需點兩次才可關閉的問題 -->
+              $.datepicker._selectDateOverload = $.datepicker._selectDate;
+              $.datepicker._selectDate = function(id, dateStr) {
+                var target = $(id);
+                var inst = this._getInst(target[0]);
+                inst.inline = true;
+                $.datepicker._selectDateOverload(id, dateStr);
+                inst.inline = false;
+                target[0].multiDatesPicker.changed = false;
+                this._updateDatepicker(inst);
+              };
+              <!-- /.解決 MultiDatePicker 閃爍問題並處理需點兩次才可關閉的問題 -->
+              $('#schDate-modal-add').removeAttr("disabled");
+            }else{
+              $("#addModalMessage").html("錯誤:伺服器無回傳結果。")
+                      .css("color","red");
+            }
+          }
+        });
+      }else{
+        $("#addModalMessage").html("請填寫完美容師、助理與時段，再查詢日期。")
+                             .css("color","red");
+      }
+    })
+
     // 美容師與助理的欄位若是變動 需要再按一次 查詢日期
     $('#ASST_name_2-modal-add').on("change", function (){
       $('#schDate-modal-add').prop("disabled", true);
@@ -606,49 +682,9 @@
       $('#schDate-modal-add').prop("disabled", true);
     })
 
-    // 根據員工 時段 來封鎖不可選擇的日期
-    $("#searchAvailableDatesAdd").on("click", function (){
-
-      // check which period is selected
-      for (let p of $('input.jobPeriod-add:checked')){
-        period.push(p.value);
-      }
-
-      $.ajax({
-        url:"${pageContext.request.contextPath}/ipet-back/job/addModalInput",
-        method: "POST",
-        data:{
-          groomerID: $('#GROOMER_name-modal-add').val(),
-          asstID1: $('#ASST_name_1-modal-add').val(),
-          asstID2: $('#ASST_name_2-modal-add').val(),
-          period: period
-        },
-        success: function(resp){
-          empObjectAdd = JSON.parse(resp);
-          // 移除舊 日曆
-          $('#schDate-modal-add').multiDatesPicker("destroy");
-          // 將不能使用的date鎖起來
-          $('#schDate-modal-add').multiDatesPicker({
-            dateFormat: 'yy-mm-dd',
-            minDate: 0,
-            addDisabledDates: empObjectAdd.illegalDate
-          });
-          // https://github.com/dubrox/Multiple-Dates-Picker-for-jQuery-UI/issues/67
-          <!-- 解決 MultiDatePicker 閃爍問題並處理需點兩次才可關閉的問題 -->
-          $.datepicker._selectDateOverload = $.datepicker._selectDate;
-          $.datepicker._selectDate = function(id, dateStr) {
-            var target = $(id);
-            var inst = this._getInst(target[0]);
-            inst.inline = true;
-            $.datepicker._selectDateOverload(id, dateStr);
-            inst.inline = false;
-            target[0].multiDatesPicker.changed = false;
-            this._updateDatepicker(inst);
-          };
-          <!-- /.解決 MultiDatePicker 閃爍問題並處理需點兩次才可關閉的問題 -->
-        }
-      });
-      $('#schDate-modal-add').removeAttr("disabled");
+    // 時段欄位若是變動 需要再按一次查詢日期
+    $(".jobPeriod-add").on("change", function (){
+      $('#schDate-modal-add').prop("disabled", true);
     })
 
 

@@ -1,13 +1,12 @@
 package com.web.appoint.model.services.imp;
 
-import com.web.job.model.entities.JobSchedule;
 import com.web.appoint.model.dao.imp.AppointmentDetailImp;
 import com.web.appoint.model.dao.imp.AppointmentImp;
 import com.web.appoint.model.entities.Appointment;
 import com.web.appoint.model.entities.AppointmentDetail;
 import com.web.appoint.model.services.AppointServices;
 import com.web.job.model.dao.JobScheduleImp;
-
+import com.web.job.model.entities.JobSchedule;
 
 import java.util.HashSet;
 import java.util.List;
@@ -160,6 +159,13 @@ public class AppointServicesImp implements AppointServices {
         // TODO: 需串接會員資料
         List<Appointment> all = appointmentImp.getAll();
         return integrateAppointments(all);
+    }
+
+    @Override
+    public Appointment findAppointById(Integer id) {
+        // 完整顯示 APM_ID memName petName schDate schPeriod TotalPrice APM_STATUS schId appointmentdetail
+        // TODO: 需串接會員資料
+        return appointmentImp.getById(id);
     }
 
     @Override
